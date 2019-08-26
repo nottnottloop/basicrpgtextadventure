@@ -3,4 +3,4 @@ One of my first real programming things in Python, attack four pretdetermined mo
 
 Pretty happy with this for a first real project, just your typical noobie trying to get into programming for the first time and chuffed with some of the systems coded. Neither the monsters or the items are hardcoded into the game, rather there's a system in place for dynamically assigning new monsters or items based on function calls if needed. Although this feature isn't actually used in v1.1, this could be added if need be. Another personal highlight is the inventory system, which dynamically assigns menu options according to what is in the inventory and what is not. Super basic stuff to anyone else, but pretty good for a beginner.
 
-`(line 12: version = '1.1'  # How fucking pretentious do you have to be to include a version number in something like this)`
+`line 12: version = '1.1'  # How fucking pretentious do you have to be to include a version number in something like this`
