@@ -9,7 +9,7 @@ import shutil
 columns, rows = shutil.get_terminal_size(fallback=(80, 24))
 columns -= 1
 welcome_spaces = 80
-version = '1.1'  # How fucking pretentious do you have to be to include a version number in something like this
+version = '1.1.1'  # How fucking pretentious do you have to be to include a version number in something like this
 # Items are mostly static, inventory is reset in init_game_vars
 inventory = {}
 numitems = 0
@@ -27,7 +27,7 @@ def centprint(text):
 
 # This displays stats, probably will use this function a lot
 def display_stats(newline=False):
-    centprint('YOU: HP: %s, Attack: %s, Coolness: %s' % (hp, attack, coolness))
+    centprint('YOU HAVE: Hitpoints: %s, Attack: %s, Coolness: %s' % (hp, attack, coolness))
     if newline:
         print('')
 
@@ -61,7 +61,25 @@ def kill(self):
         game_win()
 
 
-# This defines an item
+def heal(amount):
+    global hp
+    hp += amount
+    print('\n\nYou were healed for: ' + str(amount))
+
+
+def coolup(amount):
+    global coolness
+    coolness += amount
+    print('\n\nRadical! Your coolness stat increased by ' + str(amount) + '! (This increases your item drop chance)')
+
+
+def buff(amount):
+    global attack
+    attack += amount
+    print('\n\nSweet! Your attack stat increased by ' + str(amount))
+
+
+# Define what an item is
 class Item:
     def __init__(self, ability, amount, itemname, itemdesc, quant=0):
         global numitems, inventory, itemid
@@ -108,7 +126,7 @@ health_potion = Item('heal', 10, 'Health Potion', 'A generic health potion, red 
                                                   ' real human heart instead of a cartoon??)')
 mr_muscles_brew = Item('buff', 4, 'Mr Muscle\'s Brew', 'Mr Muscles\'s Patented Muscle formula!')
 # item3 = Item('buff', 4, 'hmmmmm', 'artsrastrast')
-cool_man_tonic = Item('coolup', 3, 'Cool Dude\'s Tonic', 'Only for the coolest around 8)')
+cool_man_tonic = Item('coolup', 1, 'Cool Dude\'s Tonic', 'Only for the coolest around 8)')
 
 
 # Initialise game variables
@@ -144,24 +162,6 @@ def init_game_vars():
     monster_index = [crab, vampire, floating_piece_of_paper, big_bad_boss_man]
     current_monster_num = 0
     current_monster = monster_index[current_monster_num]
-
-
-def heal(amount):
-    global hp
-    hp += amount
-    print('\nYou were healed for: ' + str(amount))
-
-
-def buff(amount):
-    global attack
-    attack += amount
-    print('\nSweet! Your attack stat increased by ' + str(amount))
-
-
-def coolup(amount):
-    global coolness
-    coolness += amount
-    print('\nRadical! Your coolness stat increased by ' + str(amount) + '! (This increases your item drop chance)')
 
 
 def attackfn():
@@ -353,5 +353,5 @@ while True:
             continue
         if action_taken and not current_monster.dead:
             current_monster.monster_attacks()
-            if random.randint(1, 10) <= coolness and hp > 0:
+            if random.randint(1, 15) <= coolness and hp > 0:
                 itemid[(random.randint(0, numitems - 1))].find_item()
