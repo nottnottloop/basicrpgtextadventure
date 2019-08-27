@@ -7,9 +7,8 @@ import shutil
 
 # Initialise the variables only relevant before game starts
 columns, rows = shutil.get_terminal_size(fallback=(80, 24))
-columns -= 1
-welcome_spaces = 80
-version = '1.1.1'  # How fucking pretentious do you have to be to include a version number in something like this
+columns -= 0
+version = '1.1.2'  # How fucking pretentious do you have to be to include a version number in something like this
 # Items are mostly static, inventory is reset in init_game_vars
 inventory = {}
 numitems = 0
@@ -23,6 +22,9 @@ def centprint(text):
     wrapped_text = textwrap.wrap(text)
     for line in wrapped_text:
         print(line.center(columns))
+    #for line in text:
+    #    wrapped_text = textwrap.wrap(text)
+    #    print(wrapped_text)
 
 
 # This displays stats, probably will use this function a lot
@@ -310,10 +312,15 @@ def debug_mode():
 
 
 # The main function begins from here
-print(''.center(columns, '*'))
-centprint('Welcome to version %s of an intense and basic text based adventure game, '
-          'with incredibly spooky monsters to fight! >:D' % version)
-print(''.center(columns, '*'))
+print(''.center(columns, '*'), end='')
+#centprint('Welcome to version %s of an intense and basic text based adventure game, '
+#          'with incredibly spooky monsters to fight! >:D' % version)
+print(r'''  
+|_  _. _o _._._  __|_ _  _|_ _. _|   _ .__|_   .__  ._   
+|_)(_|_>|(_| |_)(_||_(/_><|_(_|(_|\/(/_| ||_|_||(/_o|_)\/
+             |   _|                                 |  / ''')
+print(('basicrpgtextadventure.py v%s' % version).rjust(columns))
+print(''.center(columns, '*'), end='')
 
 while True:
     # Reset current monster back to the start
