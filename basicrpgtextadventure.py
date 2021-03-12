@@ -4,18 +4,16 @@ import time
 import textwrap
 import shutil
 
-
 # Initialise the variables only relevant before game starts
 columns, rows = shutil.get_terminal_size(fallback=(80, 24))
 columns -= 0
-version = '1.1.2'  # How fucking pretentious do you have to be to include a version number in something like this
+version = '1.1.3'  # How fucking pretentious do you have to be to include a version number in something like this
 # Items are mostly static, inventory is reset in init_game_vars
 inventory = {}
 numitems = 0
 itemerror = "You didn't pick a valid item. Select an item by entering the number in the square brackets: []"
 itemid = {}
 playing = False
-
 
 # This code allows centered text to print
 def centprint(text):
@@ -26,13 +24,11 @@ def centprint(text):
     #    wrapped_text = textwrap.wrap(text)
     #    print(wrapped_text)
 
-
 # This displays stats, probably will use this function a lot
 def display_stats(newline=False):
     centprint('YOU HAVE: Hitpoints: %s, Attack: %s, Coolness: %s' % (hp, attack, coolness))
     if newline:
         print('')
-
 
 # This class defines a monster in the game, with HP, an attack stat, name, description and whether it's dead or not
 class Monster:
@@ -56,30 +52,25 @@ class Monster:
                   (current_monster.shortname, str(current_monster.attack)))
         print()
 
-
 def kill(self):
     self.dead = True
     if self.finalboss:
         game_win()
-
 
 def heal(amount):
     global hp
     hp += amount
     print('\n\nYou were healed for: ' + str(amount))
 
-
 def coolup(amount):
     global coolness
     coolness += amount
     print('\n\nRadical! Your coolness stat increased by ' + str(amount) + '! (This increases your item drop chance)')
 
-
 def buff(amount):
     global attack
     attack += amount
     print('\n\nSweet! Your attack stat increased by ' + str(amount))
-
 
 # Define what an item is
 class Item:
@@ -120,7 +111,6 @@ class Item:
     #def repopulate_inventory(self):
     #    for i in range(numitems):
     #        self = inventory[itemid]
-
 
 # Define item types
 health_potion = Item('heal', 10, 'Health Potion', 'A generic health potion, red and everything. '
@@ -257,13 +247,11 @@ def item():
             print_inv()
     print('')
 
-
 def mercy():
     global action_taken, turn_count
     turn_count += 1
     action_taken = True
     print('\nYou pass your turn...\n')
-
 
 def game_lose():
     global playing
@@ -288,7 +276,6 @@ def game_lose():
             print('Invalid input')
             continue
 
-
 def game_win():
     global won, turn_count, playing
     won = True
@@ -301,7 +288,6 @@ def game_win():
     time.sleep(3.5)
     sys.exit()
 
-
 def debug_mode():
     global hp, attack, coolness, debug
     print('BEEP BOOP debug mode active, have one of all items too')
@@ -309,7 +295,6 @@ def debug_mode():
     for i in range(numitems):
         inventory[i].find_item()
     debug = True
-
 
 # The main function begins from here
 print(''.center(columns, '*'), end='')
