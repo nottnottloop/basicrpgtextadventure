@@ -7,7 +7,7 @@ import shutil
 # Initialise the variables only relevant before game starts
 columns, rows = shutil.get_terminal_size(fallback=(80, 24))
 columns -= 0
-version = '1.1.3'  # How fucking pretentious do you have to be to include a version number in something like this
+version = '1.1.3'
 # Items are mostly static, inventory is reset in init_game_vars
 inventory = {}
 numitems = 0
